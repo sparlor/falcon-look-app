@@ -42,7 +42,14 @@ jobs:
       with:
         sarif_file: ${{ steps.scan.outputs.sarif }}
 
-    - name: Test Artifact
+    - name: Upload Scan Report
+      if: ${{ always() }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: vuln-report
+        path: results.sarif
+
+    - name: Upload Test Artifact
       if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
