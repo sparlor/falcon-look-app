@@ -53,7 +53,9 @@ jobs:
     - name: Create an Issue on failure
       if: ${{ failure() }}
       run: |
-        # gh auth login --with-token < ${{ secrets.GITHUB_TOKEN }}
-        gh issue create --title "My new issue" --body "Here are more details."
+        curl \
+          -H "Accept: application/vnd.github+json" \ 
+          -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          https://api.github.com/repos/$GITHUB_REPOSITORY/issues
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
