@@ -26,3 +26,5 @@ jobs:
     
     - name: Run tests and coverage report
       run: coverage run -m pytest tests/ && coverage html
+
+      
