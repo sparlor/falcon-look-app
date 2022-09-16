@@ -28,6 +28,7 @@ jobs:
       run: coverage run -m pytest tests/ && coverage html
 
     - name: Test Artifact
+      if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
         name: test-report
@@ -38,7 +39,7 @@ jobs:
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
-        
+
     - name: Build and push
       uses: docker/build-push-action@v3
       with:
