@@ -52,6 +52,8 @@ jobs:
     
     - name: Create an Issue on failure
       if: ${{ failure() }}
-      run: gh issue create --title "My new issue" --body "Here are more details."
+      run: |
+        # gh auth login --with-token < ${{ secrets.GITHUB_TOKEN }}
+        gh issue create --title "My new issue" --body "Here are more details."
       env:
-        GITHUB_TOKEN: $ {{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
