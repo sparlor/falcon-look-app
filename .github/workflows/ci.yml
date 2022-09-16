@@ -25,14 +25,14 @@ jobs:
         docker run -dit -p 8000:8000 scottyfullstack/falcon-look-app
     
     - name: Run tests and coverage report
-      run: coverage run -m pytest tests/ && coverage html
+      run: coverage run -m pytest tests/ && coverage report > coverage-report
 
     - name: Test Artifact
       if: ${{ always() }}
       uses: actions/upload-artifact@v3
       with:
-        name: test-report
-        path: htmlcov
+        name: coverage-report
+        path: coverage-report
     
     - name: Login to DockerHub
       uses: docker/login-action@v2
@@ -45,3 +45,13 @@ jobs:
       with:
         push: true
         tags: user/app:latest
+    
+    - name: Create an Issue on failure
+      if: ${{ failure() }}
+      run: |
+        curl \
+        -X POST \
+        -H "Accept: application/vnd.github+json" \ 
+        -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+        https://api.github.com/repos/${{ github.repository }}/issues \
+        -d '{"title":"Found a bug","body":"I'\''m having a problem with this.","assignees":["$GITHUB_ACTOR"],"milestone":1,"labels":["bug"]}'
