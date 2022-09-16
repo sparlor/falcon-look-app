@@ -6,4 +6,4 @@ from .images import Resource
 app = application = falcon.App()
 
 images = Resource()
-app.add_route('/image', images)
+app.add_route('/images', images)

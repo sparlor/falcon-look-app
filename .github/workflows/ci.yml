@@ -27,4 +27,7 @@ jobs:
     - name: Run tests and coverage report
       run: coverage run -m pytest tests/ && coverage html
 
-      
+    - name: Test Artifact
+      uses: actions/upload-artifact@v1
+      with:
+        path: htmlcov
