@@ -48,7 +48,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: user/app:latest
+        tags: scottyfullstack/falcon-look-app:latest
     
     - name: Create an Issue on failure
       if: ${{ failure() }}
@@ -56,7 +56,3 @@ jobs:
         gh issue create --title "Automated Test Failure on Job: ${{ github.workflow }} - ${{ github.sha }} " --body "Failure: on job ${{ github.job }}"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-        
-
-        
